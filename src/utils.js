@@ -159,3 +159,23 @@ export function generateProduct() {
     status: productStatus,
   };
 }
+
+/******************************* Generate RandomKey *******************************/
+export function generateRandomCode() {
+  let code = Math.floor(Math.random() * 1000000);
+  let codeString = String(code);
+  let salt = bcrypt.genSaltSync(10);
+  let hashedCode = bcrypt.hashSync(codeString, salt, 10);
+  return hashedCode.slice(0, 32);
+}
+
+/******************************* Transport Email *******************************/
+import nodemailer from 'nodemailer';
+export const transport = nodemailer.createTransport({
+  service: 'gmail',
+  prot: 587,
+  auth: {
+    user: process.env.GOOGLE_EMAIL,
+    pass: process.env.GOOGLE_PASS,
+  },
+});
