@@ -148,10 +148,25 @@
   cursor: pointer;
   margin-top: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
 .form input[type='submit']:hover {
   background-color: #a7aa9a;
+}
+
+.buttonResetPass {
+  text-decoration: none;
+  color: #333333;
+  margin: 0 auto;
+}
+
+.buttonResetPass:hover {
+  background-color: #333333;
+  color: #f2ff03;
+  transition: 0.3s;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 /* Responsive Form */
