@@ -21,7 +21,9 @@ import { testFaker } from './testFaker.js';
 import errorHandler from './middleware/error.js';
 import { testLogger } from './routes/test.router.js';
 import { addLogger } from './middleware/logger.js';
-
+import { usersRouter } from './routes/users.router.js';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
 
 const app = express();
 const port = 8080;
@@ -62,9 +64,25 @@ iniPassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+/* Swagger Documentation */
+export const swaggerOptions = {
+  definition: {
+    openapi: '3.0.1',
+    info: {
+      title: 'Documentacion Ecommerce',
+      description: 'Documentación de una API REST sobre un Ecommerce',
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
 /* Api Rest JSON */
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+app.use('/api/users', usersRouter);
 
 /* HTML Render */
 app.get('/', (req, res) => {
